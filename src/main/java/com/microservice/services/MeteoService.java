@@ -1,9 +1,14 @@
 package com.microservice.services;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.microservice.models.MeteoModel;
+import com.microservice.repository.MeteoRepository;
 
 @Service
 public class MeteoService {
@@ -16,6 +21,24 @@ public class MeteoService {
 		MeteoModel meteoModel = restTemplate.getForObject(meteoHost+city+meteoKey, MeteoModel.class);
 		
 		return meteoModel;
+	}
+	
+	@Autowired
+	public MeteoRepository mr;
+	
+	public MeteoModel meteoSaver(String city) {
+		MeteoModel meteoModel = meteo(city);
+		meteoModel.setCityName(city);
+		mr.save(meteoModel);
+		return meteoModel;
+	}
+	
+	public List<MeteoModel> getAllSavedInfo(){
+		return mr.findAll();		
+	}
+	
+	public Optional<MeteoModel> findById(String cod) {
+		return mr.findById(cod);
 	}
 	
 }

@@ -1,14 +1,26 @@
 package com.microservice.models;
 
-import java.util.List;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document
 public class MeteoModel {
+	@Id
+	private String cityName;
 	private String cod;
 	private int message;
 	private int cnt;
 	private Lst[] list;
 	private City city;
 	
+	
+	
+	public String getCityName() {
+		return cityName;
+	}
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
+	}
 	public String getCod() {
 		return cod;
 	}
