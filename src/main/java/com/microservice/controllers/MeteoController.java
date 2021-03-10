@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,8 +41,20 @@ public class MeteoController {
 	}
 	
 	@GetMapping("/getById")
-	public Optional<MeteoModel> getById(@RequestParam String cod) {
-		return meteoService.findById(cod);
+	public Optional<MeteoModel> getById(@RequestParam String city) {
+		return meteoService.findById(city);
+	}
+	
+	@DeleteMapping("/deleteById")
+	public List<MeteoModel> deleteById(@RequestParam String city) {
+		meteoService.deleteById(city);
+		return meteoService.getAllSavedInfo();
+	}
+	
+	@DeleteMapping("/deleteAll")
+	public List<MeteoModel>  deleteAll() {
+		meteoService.deleteAll();
+		return meteoService.getAllSavedInfo();
 	}
 	
 }

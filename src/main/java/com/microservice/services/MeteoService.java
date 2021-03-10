@@ -37,8 +37,27 @@ public class MeteoService {
 		return mr.findAll();		
 	}
 	
-	public Optional<MeteoModel> findById(String cod) {
-		return mr.findById(cod);
+	public Optional<MeteoModel> findById(String city) {
+		return mr.findById(city);
 	}
+	
+	public boolean deleteById(String city) {
+		try {
+			mr.deleteById(city);
+		} catch (Exception e) {
+			return false;
+		}
+		 return true;
+	}
+	
+	public boolean deleteAll() {
+		try {
+			mr.deleteAll();
+		} catch (Exception e) {
+			return false;
+		}
+		 return true;
+	}
+	
 	
 }
